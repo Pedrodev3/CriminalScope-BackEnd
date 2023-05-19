@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface ProcuradoRepository extends JpaRepository<Procurado, Long> {
 
 
+    Procurado findProcuradoById(Long id);
+
+    Procurado findProcuradoByName(String name);
 }

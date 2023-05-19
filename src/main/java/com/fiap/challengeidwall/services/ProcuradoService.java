@@ -19,4 +19,8 @@ public class ProcuradoService {
         return procuradoRepository.findAll();
     }
 
+    public Procurado getProcuradoById(Long id) {return procuradoRepository.findProcuradoById(id);}
+
+    public Procurado getProcuradoByName(String name) {return procuradoRepository.findProcuradoByName(name);}
+
 }
