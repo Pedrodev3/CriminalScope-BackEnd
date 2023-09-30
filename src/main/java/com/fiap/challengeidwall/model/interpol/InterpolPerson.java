@@ -11,7 +11,7 @@ public class InterpolPerson {
     private String name;
     private List<String> nationalities;
     private String date_of_birth;
-    private Links links;
+    private Links _links;
 
     @Override
     public String toString() {

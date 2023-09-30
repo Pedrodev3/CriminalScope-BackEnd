@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class InterpolResponse {
-    private Embedded _embedded;
+public class Embedded {
+    private List<InterpolPerson> notices;
 }

@@ -24,14 +24,14 @@ public class ChallengeIdWallApplication {
         SpringApplication.run(ChallengeIdWallApplication.class, args);
     }
 
-//    @PostConstruct
-//    public void initFbi() {
-//        try {
-//            fbiWebScrapingService.scrapeAndInsertData();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @PostConstruct
+    public void initFbi() {
+        try {
+            fbiWebScrapingService.scrapeAndInsertData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @PostConstruct
     public void initInterpol() {

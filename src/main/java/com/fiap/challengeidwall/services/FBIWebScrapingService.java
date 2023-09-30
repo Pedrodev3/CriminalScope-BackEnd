@@ -57,8 +57,15 @@ public class FBIWebScrapingService {
                             System.out.println("Date of Birth: " + "Unknown");
                         }
 
-                        procurado.setNacionalidade(person.getNationality());
-                        System.out.println("Nationality: " + person.getNationality());
+                        if(person.getNationality() != null) {
+                            procurado.setNacionalidade(person.getNationality());
+                            System.out.println("Nationality: " + person.getNationality());
+                        } else {
+                            procurado.setNacionalidade("Unknown");
+                            System.out.println("Nationality: Unknown");
+                        }
+
+                        procurado.setStatus("F");
 
                         procurado.setFoto(image.getThumb());
                         System.out.println("Thumb: " + image.getOriginal());
