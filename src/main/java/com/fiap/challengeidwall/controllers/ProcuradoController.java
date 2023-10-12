@@ -70,7 +70,7 @@ public class ProcuradoController {
         } else if (name.isPresent()) {
             procurados = procuradoService.getProcuradoContainsName(name.get());
         } else {
-            return ResponseEntity.badRequest().body(Optional.empty());
+            procurados = Optional.of(procuradoService.getProcuradoAll());
         }
         if (procurados.isEmpty()) {
             return ResponseEntity.notFound().build();
