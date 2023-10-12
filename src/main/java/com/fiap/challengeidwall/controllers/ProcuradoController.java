@@ -57,6 +57,14 @@ public class ProcuradoController {
         return ResponseEntity.ok(procurados);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<String> findByNameAndOrganization(
+            @RequestParam("name") Optional<String> name,
+            @RequestParam("org") Optional<String> org
+    ) {
+        return ResponseEntity.ok(name + "" + org);
+    }
+
     @PostMapping
     public ResponseEntity<Procurado> save(@RequestBody Procurado procurado) {
         Procurado savedProcurado = procuradoService.saveProcurado(procurado);
