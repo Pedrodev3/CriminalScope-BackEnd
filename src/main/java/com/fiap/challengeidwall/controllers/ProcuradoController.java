@@ -64,7 +64,7 @@ public class ProcuradoController {
     ) {
         Optional<List<Procurado>> procurados;
         if (name.isPresent() && org.isPresent()) {
-            procurados = procuradoService.getProcuradoByStatusAndName(name.get(), org.get());
+            procurados = procuradoService.getProcuradoByStatusAndName(org.get(), name.get());
         } else if (org.isPresent()) {
             procurados = procuradoService.getProcuradoByStatus(org.get());
         } else if (name.isPresent()) {

@@ -31,7 +31,7 @@ public class ProcuradoService {
         return procuradoRepository.save(procurado);
     }
 
-    public Optional<List<Procurado>> getProcuradoByStatusAndName(String status, String procurado) {return procuradoRepository.findByProcuradoContainingAndStatus(status, procurado);}
+    public Optional<List<Procurado>> getProcuradoByStatusAndName(String status, String procurado) {return procuradoRepository.findByProcuradoContainingAndStatus(procurado, status);}
 
     public Optional<List<Procurado>> getProcuradoContainsName(String procurado) {return procuradoRepository.findByProcuradoContaining(procurado);}
 
