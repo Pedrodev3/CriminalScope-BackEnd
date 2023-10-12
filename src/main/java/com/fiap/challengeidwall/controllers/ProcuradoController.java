@@ -58,11 +58,24 @@ public class ProcuradoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<String> findByNameAndOrganization(
-            @RequestParam("name") Optional<String> name,
-            @RequestParam("org") Optional<String> org
+    public ResponseEntity<Optional<List<Procurado>>> findByNameAndOrganization(
+            @RequestParam(name = "name", required = false) Optional<String> name,
+            @RequestParam(name = "org", required = false) Optional<String> org
     ) {
-        return ResponseEntity.ok(name + "" + org);
+        Optional<List<Procurado>> procurados;
+        if (name.isPresent() && org.isPresent()) {
+            procurados = procuradoService.getProcuradoByStatusAndName(name.get(), org.get());
+        } else if (org.isPresent()) {
+            procurados = procuradoService.getProcuradoByStatus(org.get());
+        } else if (name.isPresent()) {
+            procurados = procuradoService.getProcuradoContainsName(name.get());
+        } else {
+            return ResponseEntity.badRequest().body(Optional.empty());
+        }
+        if (procurados.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(procurados);
     }
 
     @PostMapping

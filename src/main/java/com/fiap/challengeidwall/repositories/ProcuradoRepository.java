@@ -13,5 +13,9 @@ public interface ProcuradoRepository extends JpaRepository<Procurado, Long> {
 
     Optional<List<Procurado>> findByStatus(String status);
 
+    Optional<List<Procurado>> findByProcuradoContainingAndStatus(String procurado, String status);
+
+    Optional<List<Procurado>> findByProcuradoContaining(String procurado);
+
     void deleteAll();
 }
