@@ -14,31 +14,31 @@ import java.io.IOException;
 //@EnableSwagger2
 public class ChallengeIdWallApplication {
 
-//    @Autowired
-//    private FBIWebScrapingService fbiWebScrapingService;
-//
-//    @Autowired
-//    private InterpolWebScrapingService interpolWebScrapingService;
+    @Autowired
+    private FBIWebScrapingService fbiWebScrapingService;
+
+    @Autowired
+    private InterpolWebScrapingService interpolWebScrapingService;
 
     public static void main(String[] args) {
         SpringApplication.run(ChallengeIdWallApplication.class, args);
     }
 
-//    @PostConstruct
-//    public void initFbi() {
-//        try {
-//            fbiWebScrapingService.scrapeAndInsertData();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @PostConstruct
-//    public void initInterpol() {
-//        try {
-//            interpolWebScrapingService.scrapeAndInsertData();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @PostConstruct
+    public void initFbi() {
+        try {
+            fbiWebScrapingService.scrapeAndInsertData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @PostConstruct
+    public void initInterpol() {
+        try {
+            interpolWebScrapingService.scrapeAndInsertData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
