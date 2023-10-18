@@ -15,7 +15,7 @@
     <description>ChallengeIdWall</description>
     <properties>
         <java.version>17</java.version>
-        <ojdbc11.path>C:\ojdbc11.jar</ojdbc11.path>
+        <ojdbc11.path>/Users/guerra/Documents/Programming/Utils/ojdbc11.jar</ojdbc11.path>
     </properties>
     <dependencies>
         <dependency>
