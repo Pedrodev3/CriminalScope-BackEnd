@@ -15,7 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 @Service
 public class InterpolWebScrapingService {
@@ -39,33 +43,54 @@ public class InterpolWebScrapingService {
             for (InterpolPerson person : interpolResponse.get_embedded().getNotices()) {
                 Procurado procurado = new Procurado();
 
-                procurado.setProcurado(person.getName());
-                System.out.println("Name: " + person.getName());
+                String name = person.getName();
+                if (name != null && !name.isEmpty()) {
+                    String finalFormat = Arrays.stream(name.split(" "))
+                            .filter(part -> !part.isEmpty())
+                            .map(part -> part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase())
+                            .collect(Collectors.joining(" "));
+                    procurado.setProcurado(finalFormat);
+                } else procurado.setProcurado("No name available.");
 
-                procurado.setDataNascimento(person.getDate_of_birth());
-                System.out.println("Date of Birth: " + person.getDate_of_birth());
-
-                procurado.setNacionalidade(person.getNationalities().get(0));
-                if (person.getNationalities() != null) {
-                    System.out.println("Nationalities: " + person.getNationalities().get(0));
-                } else {
-                    System.out.println("It does not have nationality.");
+                String inputDate = person.getDate_of_birth();
+                try {
+                    if (inputDate != null) {
+                        Date date = new SimpleDateFormat("yyyy/MM/dd").parse(inputDate);
+                        String formattedDate = new SimpleDateFormat("MMMM dd, yyyy").format(date);
+                        procurado.setDataNascimento(formattedDate);
+                    } else procurado.setDataNascimento("No date of birth available.");
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+
+                if (person.getNationalities() != null) {
+                    procurado.setNacionalidade(person.getNationalities().get(0));
+                } else procurado.setNacionalidade("It does not have nationality.");
 
                 procurado.setStatus("I");
 
-                procurado.setFoto(person.get_links().getImages().getHref());
                 if (person.get_links() != null && person.get_links().getImages() != null) {
-                    System.out.println("Foto: " + person.get_links().getImages().getHref());
-                } else {
-                    System.out.println("No image link available for this person.");
+                    procurado.setFoto(person.get_links().getImages().getHref());
+                } else procurado.setFoto("No image available for this person.");
+
+                // Comunicação com o serviço de detalhes (terceira API)
+                InterpolDetailsService service = new InterpolDetailsService();
+
+                String id = person.getEntity_id();
+                try {
+                    id = id.replaceAll("/", "-");
+                    service = InterpolDetailsService.interpolDetails(id);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
-                System.out.println("--------------------------------");
+
+                procurado.setLugarNascimento(service.getPlaceOfBirth());
+                procurado.setSexo(service.getSexLabel());
+                procurado.setAltura(service.getHeight());
+                procurado.setDetalhes(service.getFormattedCharge());
 
                 procuradoRepository.save(procurado);
             }
-
-
         } else {
             System.out.println("A solicitação não foi bem-sucedida. Código de resposta: " + response.getStatusLine().getStatusCode());
         }

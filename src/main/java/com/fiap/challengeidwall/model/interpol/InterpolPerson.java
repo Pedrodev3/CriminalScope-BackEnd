@@ -1,5 +1,6 @@
 package com.fiap.challengeidwall.model.interpol;
 
+import com.fiap.challengeidwall.model.interpol.details.EntityId;
 import com.fiap.challengeidwall.model.interpol.link.Links;
 import lombok.Data;
 
@@ -9,9 +10,10 @@ import java.util.List;
 public class InterpolPerson {
 
     private String name;
-    private List<String> nationalities;
     private String date_of_birth;
+    private List<String> nationalities;
     private Links _links;
+    private String entity_id;
 
     @Override
     public String toString() {

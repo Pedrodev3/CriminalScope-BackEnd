@@ -38,4 +38,16 @@ public class Procurado {
 
     @Column(name = "ds_foto_link", length=300)
     private String foto;
+
+    @Column(name = "ds_lugar_nascimento", length=50)
+    private String lugarNascimento;
+
+    @Column(name = "ds_sexo", length=10)
+    private String sexo;
+
+    @Column(name = "ds_altura", length=10)
+    private String altura;
+
+    @Column(name = "ds_detalhes", length=1500)
+    private String detalhes;
 }

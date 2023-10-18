@@ -34,13 +34,4 @@ public class ProcuradoService {
     public Optional<List<Procurado>> getProcuradoByStatusAndName(String status, String procurado) {return procuradoRepository.findByProcuradoContainingAndStatus(procurado, status);}
 
     public Optional<List<Procurado>> getProcuradoContainsName(String procurado) {return procuradoRepository.findByProcuradoContaining(procurado);}
-
-    public void deleteAllProcurados() {
-        procuradoRepository.deleteAll();
-    }
-
-    public void deleteProcuradoById(Long id) {
-        procuradoRepository.deleteById(id);
-    }
-
 }
